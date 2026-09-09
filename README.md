@@ -1,4 +1,5 @@
-# Grammar Trail PWA v1.1
+# Grammar Trail PWA
 
-Обновление цветовой гаммы: #000080 / #8080FF / #f2c9b3 / #FFFFFF.
-Загрузить содержимое этой папки в корень репозитория GitHub Pages.
+GitHub Pages-ready version of Grammar Trail with an iPhone-first welcome screen, responsive dashboard, progress saving, and offline PWA support.
+
+Open `index.html` through the GitHub Pages HTTPS site and tap **Get Started**. The welcome screen appears on first launch; existing progress is preserved.
