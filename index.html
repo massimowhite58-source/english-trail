@@ -387,6 +387,147 @@ button, input{touch-action:manipulation;}
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important; scroll-behavior:auto !important;}
 }
+
+/* ================================================================
+   GRAMMAR TRAIL v1.1 — Navy / Periwinkle / Peach
+   Primary: #000080 | Content field: #8080FF | Accent: #f2c9b3
+   ================================================================ */
+:root{
+  --primary:#000080;
+  --content:#8080FF;
+  --accent:#f2c9b3;
+  --white:#FFFFFF;
+  --primary-dark:#00005c;
+  --paper:var(--content);
+  --paper-2:rgba(0,0,128,.28);
+  --ink:var(--white);
+  --ink-soft:var(--accent);
+  --ink-faint:var(--accent);
+  --line:rgba(255,255,255,.28);
+  --shadow:0 4px 18px rgba(0,0,80,.22);
+}
+html,body{background:var(--content);color:var(--white);}
+body{background:var(--content);}
+
+.hero{
+  background:var(--primary);
+  color:var(--white);
+  margin:0 -20px;
+  padding:24px 20px 22px;
+  border-radius:0 0 var(--radius) var(--radius);
+  box-shadow:var(--shadow);
+}
+.hero h1{color:var(--white);}
+.hero p.sub{color:var(--accent);}
+.hero p.sub b{color:var(--white);}
+.hero-stat .num{color:var(--accent);}
+.hero-stat .num span{color:var(--white);}
+.hero-stat .lbl{color:var(--accent);}
+
+.trail-card{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:var(--white);
+}
+.trail-levels{color:var(--accent);}
+.trail-levels b{color:var(--white);}
+.trail-legend{color:var(--accent);}
+
+.search-row input{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:var(--white);
+}
+.search-row input::placeholder{color:rgba(242,201,179,.82);}
+.search-row input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(242,201,179,.25);
+}
+.search-row svg.icon{color:var(--accent);}
+.search-clear{color:var(--accent);}
+.search-results{background:var(--primary);border-color:var(--primary);}
+.search-hit{border-bottom-color:rgba(242,201,179,.25);color:var(--white);}
+.search-hit:hover{background:var(--primary-dark);}
+.search-hit .tag{background:var(--accent) !important;color:var(--primary);}
+.search-hit .txt .path,.search-empty{color:var(--accent);}
+.search-hit .txt b{color:var(--accent);}
+
+.zone-head h2{color:var(--white);}
+.zone-head .zsub,.zone-progress{color:var(--accent);}
+.zone-swatch{background:var(--accent) !important;}
+.block-card,.block-open{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:var(--white);
+}
+.block-card:hover{box-shadow:0 7px 22px rgba(0,0,80,.30);}
+.block-bar{background:rgba(242,201,179,.25);}
+.block-bar > div{background:var(--accent) !important;}
+.block-card .bmeta{color:var(--accent);}
+.block-open-head button{
+  background:var(--content);
+  color:var(--white);
+  border:1px solid var(--accent);
+}
+.unit-chip{
+  background:var(--content);
+  border-color:rgba(242,201,179,.55);
+  color:var(--white);
+}
+.unit-chip:hover{border-color:var(--accent);}
+.unit-chip .t{color:var(--accent);}
+.unit-chip.done{
+  background:rgba(242,201,179,.22);
+  border-color:var(--accent) !important;
+}
+.unit-chip .check{color:var(--accent);}
+
+.overlay{background:rgba(0,0,40,.58);}
+.panel{
+  background:var(--primary);
+  color:var(--white);
+  box-shadow:-8px 0 30px rgba(0,0,50,.35);
+}
+.panel-book-tag{background:var(--accent) !important;color:var(--primary);}
+.panel-close{
+  background:var(--content);
+  border-color:var(--accent);
+  color:var(--white);
+}
+.panel .block-name{color:var(--accent);}
+.rule-box{
+  background:var(--content);
+  border-color:rgba(242,201,179,.45);
+  border-left-color:var(--accent) !important;
+  color:var(--white);
+}
+.rule-box .lbl,.examples h4{color:var(--accent);}
+.ex-item{border-top-color:rgba(242,201,179,.28);}
+.ex-num{color:var(--accent);}
+.ex-text .en{color:var(--white);}
+.ex-text .ru{color:var(--accent);}
+.mark-btn.off{background:var(--accent);color:var(--primary);}
+.mark-btn.on{
+  background:var(--content);
+  color:var(--white);
+  border-color:var(--accent);
+}
+.panel-nav button{
+  background:var(--content);
+  color:var(--white);
+  border-color:var(--accent);
+}
+
+.footer{
+  border-top-color:rgba(242,201,179,.35);
+  color:var(--accent);
+}
+.footer button{color:var(--accent);}
+#heroNum{color:var(--accent);}
+#heroNum span{color:var(--white);}
+#trailSvg .trail-node circle.bg{stroke:var(--accent) !important;}
+#trailSvg .trail-node text{fill:var(--white) !important;}
+
 </style>
 
   <meta name="theme-color" content="#0b1220">
