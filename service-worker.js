@@ -1,4 +1,4 @@
-const CACHE_NAME = "grammar-trail-v1-2";
+const CACHE_NAME = "grammar-trail-v1-3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -27,6 +27,18 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+  const isAppShell = new URL(event.request.url).pathname.endsWith("/index.html") ||
+                     new URL(event.request.url).pathname.endsWith("/");
+  if (isAppShell) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        return response;
+      }).catch(() => caches.match(event.request).then(r => r || caches.match("./index.html")))
+    );
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
