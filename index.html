@@ -457,7 +457,7 @@ body{background:var(--content);}
 #trailSvg .trail-node text{fill:var(--white) !important;}
 </style>
 
-<style id="welcome-screen-v1">
+<style id="welcome-screen-v2">
 /* Grammar Trail welcome screen — iPhone-first */
 html.gt-welcome-active, body.gt-welcome-active{background:#000080;}
 body.gt-welcome-active{overflow:hidden;}
@@ -474,6 +474,9 @@ body.gt-welcome-active > .panel{display:none !important;}
   text-align:center;
 }
 .gt-welcome[hidden]{display:none;}
+.gt-welcome.is-leaving{animation:gtWelcomeOut .34s ease forwards;}
+@keyframes gtWelcomeOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.985)}}
+@media (prefers-reduced-motion:reduce){.gt-welcome.is-leaving{animation:none;opacity:0;}}
 .gt-welcome-logo{margin-top:8px; display:flex; flex-direction:column; align-items:center; flex:0 0 auto;}
 .gt-welcome-logo svg{width:min(145px,34vw); height:auto; display:block;}
 .gt-welcome-brand{
@@ -534,8 +537,8 @@ body.gt-welcome-active > .panel{display:none !important;}
   </div>
   <h1 class="gt-welcome-greeting">Hello, darling</h1>
   <p class="gt-welcome-sub">Let’s explore English grammar<br>together and reach your goals!</p>
-  <button class="gt-welcome-start" id="welcomeStart" type="button">
-    <span>Get Started</span><span class="arrow">→</span>
+  <button class="gt-welcome-start" id="welcomeStart" type="button" aria-label="Начать">
+    <span>Начать</span><span class="arrow">→</span>
     <span class="gt-welcome-progress" id="welcomeProgress"><span>0</span></span>
   </button>
   <div class="gt-welcome-art" aria-hidden="true">
@@ -949,30 +952,45 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 });
 
 // ---------- welcome screen ----------
+// The welcome screen is intentionally shown on EVERY app launch.
+// It is a launch/splash screen, not a one-time onboarding screen.
 (function initWelcome(){
   const screen = document.getElementById('welcomeScreen');
   const start = document.getElementById('welcomeStart');
   const progress = document.getElementById('welcomeProgress');
   if(!screen || !start) return;
+
   let count = 0;
   try{
     const raw = localStorage.getItem('gt_learned_units');
-    if(raw) count = JSON.parse(raw).length || 0;
+    if(raw){
+      const parsed = JSON.parse(raw);
+      count = Array.isArray(parsed) ? parsed.length : 0;
+    }
   }catch(e){}
-  const total = (typeof UNITS !== 'undefined' && UNITS.length) ? UNITS.length : 378;
-  const pct = Math.max(0, Math.min(100, (count/total)*100));
-  progress.style.setProperty('--progress', pct + '%');
-  progress.querySelector('span').textContent = count;
 
-  const seen = (()=>{ try{return localStorage.getItem('gt_welcome_seen') === '1';}catch(e){return false;} })();
-  if(seen){
-    screen.hidden = true;
-    document.body.classList.remove('gt-welcome-active');
+  const total = (typeof UNITS !== 'undefined' && UNITS.length) ? UNITS.length : 378;
+  const pct = Math.max(0, Math.min(100, (count / total) * 100));
+  if(progress){
+    progress.style.setProperty('--progress', pct + '%');
+    const value = progress.querySelector('span');
+    if(value) value.textContent = count;
   }
+
   start.addEventListener('click', ()=>{
-    try{ localStorage.setItem('gt_welcome_seen','1'); }catch(e){}
-    screen.hidden = true;
-    document.body.classList.remove('gt-welcome-active');
+    if(start.disabled) return;
+    start.disabled = true;
+    start.setAttribute('aria-busy','true');
+    screen.classList.add('is-leaving');
+
+    const finish = ()=>{
+      screen.hidden = true;
+      document.body.classList.remove('gt-welcome-active');
+      start.removeAttribute('aria-busy');
+    };
+
+    // Keep the short exit animation, but never let it block the app.
+    window.setTimeout(finish, 340);
   });
 })();
 
